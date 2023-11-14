@@ -1,0 +1,19 @@
+void setup() {
+  pinMode(3, OUTPUT);
+}
+// функци€ возвращает скорректированное по CRT значение
+byte getBrightCRT(byte val) {
+  return (0.0003066 * pow(val, 2.46));
+}
+uint32_t tmr;
+int val = 0;
+bool dir = true;
+void loop() {
+  if (millis() - tmr >= 20) {
+    tmr = millis();
+    if (dir) val++; // увеличиваем €ркость
+    else val--;     // уменьшаем
+    if (val >= 255 || val <= 0) dir = !dir; // разворачиваем
+    analogWrite(3, getBrightCRT(val));
+  }
+}

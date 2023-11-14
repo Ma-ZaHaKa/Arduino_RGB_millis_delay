@@ -1,0 +1,15 @@
+void setup() {
+  pinMode(3, OUTPUT);
+}
+uint32_t tmr;
+int val = 0;
+bool dir = true;
+void loop() {
+  if (millis() - tmr >= 20) {
+    tmr = millis();
+    if (dir) val++; // увеличиваем яркость
+    else val--;     // уменьшаем
+    if (val >= 255 || val <= 0) dir = !dir; // разворачиваем
+    analogWrite(3, val);
+  }
+}
